@@ -27,9 +27,11 @@ def gindex():
     """
     mux = request.args.get('mux', '')
     muy = request.args.get('muy', '')
-    if len(mux)==0: mux="3."
-    if len(muy)==0: muy="3."
-    return flask.render_template("gaus.html",mux=mux,muy=muy)
+    if len(mux) == 0:
+        mux = "3."
+    if len(muy) == 0:
+        muy = "3."
+    return flask.render_template("gaus.html", mux=mux, muy=muy)
 
 
 @app.route("/data")
@@ -50,12 +52,13 @@ def data(ndata=100):
     A = 10. ** np.random.rand(ndata)
     c = np.random.rand(ndata)
     return json.dumps([{"_id": i, "x": x[i], "y": y[i], "area": A[i],
-        "color": c[i]}
-        for i in range(ndata)])
+                        "color": c[i]}
+                      for i in range(ndata)])
+
 
 @app.route("/gdata")
 @app.route("/gdata/<float:mux>/<float:muy>")
-def gdata(ndata=100,mux=.5,muy=0.5):
+def gdata(ndata=100, mux=.5, muy=0.5):
     """
     On request, this returns a list of ``ndata`` randomly made data points.
     about the mean mux,muy
@@ -68,13 +71,13 @@ def gdata(ndata=100,mux=.5,muy=0.5):
 
     """
 
-    x = np.random.normal(mux,.5,ndata)
-    y = np.random.normal(muy,.5,ndata)
+    x = np.random.normal(mux, .5, ndata)
+    y = np.random.normal(muy, .5, ndata)
     A = 10. ** np.random.rand(ndata)
     c = np.random.rand(ndata)
     return json.dumps([{"_id": i, "x": x[i], "y": y[i], "area": A[i],
-        "color": c[i]}
-        for i in range(ndata)])
+                        "color": c[i]}
+                      for i in range(ndata)])
 
 if __name__ == "__main__":
     import os
